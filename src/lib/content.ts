@@ -100,7 +100,7 @@ export async function getDocumentBySlug(
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
   const metadata = parseMetadata(data);
-  const html = await markdownToHtml(content);
+  const html = await markdownToHtml(content, metadata.keywords);
   return {
     ...metadata,
     slug,
@@ -117,7 +117,7 @@ export async function getProfileContent() {
   }
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { content } = matter(fileContents);
-  const html = await markdownToHtml(content);
+  const html = await markdownToHtml(content, []);
   return html;
 }
 
