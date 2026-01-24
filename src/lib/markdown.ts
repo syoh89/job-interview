@@ -22,8 +22,8 @@ const keywordAutoLinkPlugin: Plugin<[string[]], Root> = (keywords = []) => {
   const pattern = new RegExp(`(${normalizedKeywords.map(escapeRegExp).join("|")})`, "g");
 
   return (tree) => {
-    visit(tree, "text", (node: any, index: number | null, parent: any) => {
-      if (!parent || index === null || EXCLUDED_PARENTS.has(parent.type)) {
+    visit(tree, "text", (node: any, index: number | undefined, parent: any) => {
+      if (!parent || index === undefined || EXCLUDED_PARENTS.has(parent.type)) {
         return;
       }
 
