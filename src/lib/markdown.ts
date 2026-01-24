@@ -4,7 +4,8 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import { visit } from "unist-util-visit";
-import type { Node } from "unist";
+import type { Plugin } from "unified";
+import type { Root } from "mdast";
 
 const EXCLUDED_PARENTS = new Set(["code", "inlineCode", "link", "linkReference", "heading"]);
 
@@ -12,7 +13,7 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function keywordAutoLinkPlugin(keywords: string[]) {
+const keywordAutoLinkPlugin: Plugin<[string[]], Root> = (keywords = []) => {
   if (keywords.length === 0) {
     return () => {};
   }
@@ -20,7 +21,7 @@ function keywordAutoLinkPlugin(keywords: string[]) {
   const normalizedKeywords = [...new Set(keywords)].sort((a, b) => b.length - a.length);
   const pattern = new RegExp(`(${normalizedKeywords.map(escapeRegExp).join("|")})`, "g");
 
-  return (tree: Node) => {
+  return (tree) => {
     visit(tree, "text", (node: any, index: number | null, parent: any) => {
       if (!parent || index === null || EXCLUDED_PARENTS.has(parent.type)) {
         return;
@@ -50,12 +51,12 @@ function keywordAutoLinkPlugin(keywords: string[]) {
       parent.children.splice(index, 1, ...nextNodes);
     });
   };
-}
+};
 
 export async function markdownToHtml(markdown: string, keywords: string[]) {
   const result = await remark()
     .use(remarkGfm)
-    .use(keywordAutoLinkPlugin(keywords))
+    .use(keywordAutoLinkPlugin, keywords)
     .use(remarkRehype)
     .use(rehypeHighlight)
     .use(rehypeStringify)
