@@ -8,6 +8,7 @@ type PageProps = {
 };
 
 export const dynamicParams = false;
+export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   const documents = await getAllDocuments("studies");
