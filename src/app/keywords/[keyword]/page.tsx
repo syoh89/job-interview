@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import DocumentList from "../../../components/DocumentList";
 import { getAllStaticKeywords, getDocumentsByKeyword } from "../../../lib/content";
 
