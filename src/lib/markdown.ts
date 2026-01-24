@@ -4,6 +4,7 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import { visit } from "unist-util-visit";
+import type { Node } from "unist";
 
 const EXCLUDED_PARENTS = new Set(["code", "inlineCode", "link", "linkReference", "heading"]);
 
@@ -19,7 +20,7 @@ function keywordAutoLinkPlugin(keywords: string[]) {
   const normalizedKeywords = [...new Set(keywords)].sort((a, b) => b.length - a.length);
   const pattern = new RegExp(`(${normalizedKeywords.map(escapeRegExp).join("|")})`, "g");
 
-  return (tree: unknown) => {
+  return (tree: Node) => {
     visit(tree, "text", (node: any, index: number | null, parent: any) => {
       if (!parent || index === null || EXCLUDED_PARENTS.has(parent.type)) {
         return;
