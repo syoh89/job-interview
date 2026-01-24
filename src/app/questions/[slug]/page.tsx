@@ -7,6 +7,8 @@ type PageProps = {
   params: { slug: string };
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const documents = await getAllDocuments("questions");
   return documents.map((doc) => ({ slug: doc.slug }));
