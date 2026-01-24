@@ -5,6 +5,8 @@ type PageProps = {
   params: { keyword: string };
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const keywords = getAllStaticKeywords();
   return keywords.map((keyword) => ({
@@ -13,6 +15,10 @@ export async function generateStaticParams() {
 }
 
 export default async function KeywordPage({ params }: PageProps) {
+  if (!params.keyword) {
+    notFound();
+  }
+
   const decodedKeyword = decodeURIComponent(params.keyword);
   const { questions, studies } = await getDocumentsByKeyword(decodedKeyword);
 
