@@ -4,7 +4,28 @@ import matter from "gray-matter";
 import { markdownToHtml } from "./markdown";
 import type { DocumentContent, DocumentListItem, DocumentMetadata, DocumentType } from "./types";
 
-const contentRoot = path.join(process.cwd(), "content");
+function resolveContentRoot() {
+  const candidateNames = ["content"];
+  let current = process.cwd();
+
+  for (let depth = 0; depth < 6; depth += 1) {
+    for (const name of candidateNames) {
+      const candidate = path.join(current, name);
+      if (fs.existsSync(candidate)) {
+        return candidate;
+      }
+    }
+    const parent = path.dirname(current);
+    if (parent === current) {
+      break;
+    }
+    current = parent;
+  }
+
+  return path.join(process.cwd(), "content");
+}
+
+const contentRoot = resolveContentRoot();
 
 function parseKeywords(value: unknown): string[] {
   if (!value) return [];
