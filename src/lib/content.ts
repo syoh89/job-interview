@@ -2,12 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { markdownToHtml } from "./markdown";
-import type {
-  DocumentContent,
-  DocumentListItem,
-  DocumentMetadata,
-  DocumentType,
-} from "./types";
+import type { DocumentContent, DocumentListItem, DocumentMetadata, DocumentType } from "./types";
 
 const contentRoot = path.join(process.cwd(), "content");
 
@@ -32,9 +27,7 @@ function parseMetadata(data: Record<string, unknown>): DocumentMetadata {
     updatedAt: String(data.updatedAt ?? ""),
     keywords: parseKeywords(data.keywords),
     category:
-      data.category === "general" || data.category === "technical"
-        ? data.category
-        : "technical",
+      data.category === "general" || data.category === "technical" ? data.category : "technical",
   };
 }
 
@@ -64,9 +57,7 @@ function getAllSlugs(type: DocumentType) {
     .map((file) => file.replace(/\.md$/, ""));
 }
 
-export async function getAllDocuments(
-  type: DocumentType,
-): Promise<DocumentListItem[]> {
+export async function getAllDocuments(type: DocumentType): Promise<DocumentListItem[]> {
   const directory = getDirectory(type);
   if (!fs.existsSync(directory)) {
     return [];
@@ -138,9 +129,7 @@ export async function getAllKeywordsByCategory() {
   });
 
   return {
-    technical: Array.from(keywordMap.technical).sort((a, b) =>
-      a.localeCompare(b),
-    ),
+    technical: Array.from(keywordMap.technical).sort((a, b) => a.localeCompare(b)),
     general: Array.from(keywordMap.general).sort((a, b) => a.localeCompare(b)),
   };
 }
