@@ -9,9 +9,7 @@ type DocumentListProps = {
 
 export default function DocumentList({ items, emptyLabel }: DocumentListProps) {
   if (items.length === 0) {
-    return (
-      <p className="text-sm text-slate-500">{emptyLabel ?? "문서가 없습니다."}</p>
-    );
+    return <p className="text-sm text-slate-500">{emptyLabel ?? "문서가 없습니다."}</p>;
   }
 
   return (

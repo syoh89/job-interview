@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   description: "면접 질문과 공부 내용을 키워드로 정리하는 사이트",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body className="min-h-screen bg-white text-slate-900">

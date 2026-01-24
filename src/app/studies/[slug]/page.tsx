@@ -22,9 +22,7 @@ export default async function StudyDetailPage({ params }: PageProps) {
   return (
     <section className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold text-slate-900">
-          {document.title}
-        </h1>
+        <h1 className="text-3xl font-semibold text-slate-900">{document.title}</h1>
         <p className="text-xs text-slate-500">
           {document.createdAt} · {document.updatedAt}
         </p>

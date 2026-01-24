@@ -20,9 +20,7 @@ export default async function HomePage() {
             {keywordMap.technical.length === 0 ? (
               <p className="text-sm text-slate-500">등록된 키워드가 없습니다.</p>
             ) : (
-              keywordMap.technical.map((keyword) => (
-                <KeywordTag key={keyword} keyword={keyword} />
-              ))
+              keywordMap.technical.map((keyword) => <KeywordTag key={keyword} keyword={keyword} />)
             )}
           </div>
         </div>
@@ -32,9 +30,7 @@ export default async function HomePage() {
             {keywordMap.general.length === 0 ? (
               <p className="text-sm text-slate-500">등록된 키워드가 없습니다.</p>
             ) : (
-              keywordMap.general.map((keyword) => (
-                <KeywordTag key={keyword} keyword={keyword} />
-              ))
+              keywordMap.general.map((keyword) => <KeywordTag key={keyword} keyword={keyword} />)
             )}
           </div>
         </div>

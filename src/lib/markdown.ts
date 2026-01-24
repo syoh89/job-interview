@@ -5,13 +5,7 @@ import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import { visit } from "unist-util-visit";
 
-const EXCLUDED_PARENTS = new Set([
-  "code",
-  "inlineCode",
-  "link",
-  "linkReference",
-  "heading",
-]);
+const EXCLUDED_PARENTS = new Set(["code", "inlineCode", "link", "linkReference", "heading"]);
 
 function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -22,13 +16,8 @@ function keywordAutoLinkPlugin(keywords: string[]) {
     return () => {};
   }
 
-  const normalizedKeywords = [...new Set(keywords)].sort(
-    (a, b) => b.length - a.length,
-  );
-  const pattern = new RegExp(
-    `(${normalizedKeywords.map(escapeRegExp).join("|")})`,
-    "g",
-  );
+  const normalizedKeywords = [...new Set(keywords)].sort((a, b) => b.length - a.length);
+  const pattern = new RegExp(`(${normalizedKeywords.map(escapeRegExp).join("|")})`, "g");
 
   return (tree: unknown) => {
     visit(tree, "text", (node: any, index: number | null, parent: any) => {
