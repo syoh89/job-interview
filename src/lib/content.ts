@@ -4,22 +4,34 @@ import matter from "gray-matter";
 import { markdownToHtml } from "./markdown";
 import type { DocumentContent, DocumentListItem, DocumentMetadata, DocumentType } from "./types";
 
-function resolveContentRoot() {
-  const candidateNames = ["content"];
-  let current = process.cwd();
-
-  for (let depth = 0; depth < 6; depth += 1) {
-    for (const name of candidateNames) {
-      const candidate = path.join(current, name);
-      if (fs.existsSync(candidate)) {
-        return candidate;
-      }
+function findContentRoot(startDir: string) {
+  let current = startDir;
+  for (let depth = 0; depth < 8; depth += 1) {
+    const candidate = path.join(current, "content");
+    if (fs.existsSync(candidate)) {
+      return candidate;
     }
     const parent = path.dirname(current);
     if (parent === current) {
       break;
     }
     current = parent;
+  }
+  return null;
+}
+
+function resolveContentRoot() {
+  const candidates = [
+    process.env.GITHUB_WORKSPACE,
+    process.cwd(),
+    __dirname,
+  ].filter((value): value is string => Boolean(value));
+
+  for (const startDir of candidates) {
+    const found = findContentRoot(startDir);
+    if (found) {
+      return found;
+    }
   }
 
   return path.join(process.cwd(), "content");
@@ -107,7 +119,23 @@ export async function getDocumentBySlug(
   const directory = getDirectory(type);
   const filePath = path.join(directory, `${slug}.md`);
   if (!fs.existsSync(filePath)) {
-    return null;
+    const availableFiles = fs.existsSync(directory)
+      ? fs
+          .readdirSync(directory)
+          .filter((file) => file.endsWith(".md"))
+          .sort()
+      : [];
+    throw new Error(
+      [
+        "Document file not found.",
+        `type=${type}`,
+        `slug=${slug}`,
+        `filePath=${filePath}`,
+        `contentRoot=${contentRoot}`,
+        `cwd=${process.cwd()}`,
+        `availableFiles=${availableFiles.join(",")}`,
+      ].join(" | "),
+    );
   }
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
