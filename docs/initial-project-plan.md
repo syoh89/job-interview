@@ -18,11 +18,9 @@ job-interview/
 │   ├── profile.md             # 사용자 정보
 │   ├── questions/             # 질문 문서들
 │   │   ├── frontend-react.md
-│   │   ├── javascript-closure.md
 │   │   └── ...
 │   ├── studies/               # 공부 문서들
 │   │   ├── http-protocol.md
-│   │   ├── database-index.md
 │   │   └── ...
 │   └── keywords/              # 키워드 메타데이터 (선택사항)
 │       ├── technical.json

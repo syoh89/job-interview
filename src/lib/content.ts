@@ -21,11 +21,9 @@ function findContentRoot(startDir: string) {
 }
 
 function resolveContentRoot() {
-  const candidates = [
-    process.env.GITHUB_WORKSPACE,
-    process.cwd(),
-    __dirname,
-  ].filter((value): value is string => Boolean(value));
+  const candidates = [process.env.GITHUB_WORKSPACE, process.cwd(), __dirname].filter(
+    (value): value is string => Boolean(value),
+  );
 
   for (const startDir of candidates) {
     const found = findContentRoot(startDir);
