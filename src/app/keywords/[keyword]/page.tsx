@@ -17,11 +17,12 @@ export async function generateStaticParams() {
 }
 
 export default async function KeywordPage({ params }: PageProps) {
-  if (!params.keyword) {
+  const { keyword } = await params;
+  if (!keyword) {
     notFound();
   }
 
-  const decodedKeyword = decodeURIComponent(params.keyword);
+  const decodedKeyword = decodeURIComponent(keyword);
   const { questions, studies } = await getDocumentsByKeyword(decodedKeyword);
 
   return (
