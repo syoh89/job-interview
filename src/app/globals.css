@@ -1,3 +1,5 @@
+@config "../../tailwind.config.js";
+@plugin "@tailwindcss/typography";
 @import "tailwindcss";
 
 @layer base {
