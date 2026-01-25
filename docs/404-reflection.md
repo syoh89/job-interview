@@ -19,6 +19,7 @@
 ### 잘한 점
 - `getDocumentBySlug()`에서 파일 미존재 시 빌드가 실패하도록 에러를 발생시키고, `contentRoot/cwd/availableFiles`를 로그로 남기도록 개선함.
 - 404가 조용히 생성되는 대신, 빌드 로그로 원인이 드러나도록 설계함.
+- prerender 단계에서 `params`가 `Promise`처럼 동작할 가능성을 고려해 `await params`로 slug/keyword를 안정적으로 추출하도록 변경함.
 
 ### 실수/개선점
 - 초기에는 404가 산출물에 생성되는 구조를 확인하지 않고 추정으로 접근함.

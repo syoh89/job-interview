@@ -16,7 +16,12 @@ export async function generateStaticParams() {
 }
 
 export default async function StudyDetailPage({ params }: PageProps) {
-  const document = await getDocumentBySlug("studies", params.slug);
+  const { slug } = await params;
+  if (!slug) {
+    notFound();
+  }
+
+  const document = await getDocumentBySlug("studies", slug);
 
   if (!document) {
     notFound();
