@@ -8,12 +8,12 @@
 
 ## 범위
 
-- `/search` 페이지에 탭 UI 추가.
+- `/keywords` 페이지에 탭 UI 추가.
 - 클라이언트 필터링 방식 유지 (정적 배포 호환).
 
 ## 변경 대상
 
-- `src/app/search/page.tsx`
+- `src/app/keywords/page.tsx`
 - `src/components/SearchClient.tsx`
 
 ## 설계 개요

@@ -33,7 +33,7 @@
   - 문서 제목
   - 키워드 목록
 - 검색 페이지:
-  - `/search` 추가
+  - `/keywords` 통합
   - 입력창 + 결과 리스트 + 결과 없을 때 메시지
 
 ## 데이터 흐름
@@ -55,7 +55,7 @@ markdown files -> getAllDocuments() -> server component props
 
 ### 검색 기능
 
-- `src/app/search/page.tsx` (서버 컴포넌트)
+- `src/app/keywords/page.tsx` (서버 컴포넌트)
   - `getAllDocuments("questions")`, `getAllDocuments("studies")` 호출
   - 클라이언트 컴포넌트에 데이터 전달
 - `src/components/SearchClient.tsx` (클라이언트 컴포넌트)
@@ -66,7 +66,7 @@ markdown files -> getAllDocuments() -> server component props
 
 - 본문 키워드 클릭 시 키워드별 문서 페이지로 이동.
 - 코드 블록/헤딩/이미 링크된 텍스트는 변환되지 않음.
-- `/search`에서 키워드/제목으로 문서가 필터링됨.
+- `/keywords`에서 키워드/제목으로 문서가 필터링됨.
 - 결과가 없을 때 안내 메시지 노출.
 
 ## 리스크 및 대응

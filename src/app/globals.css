@@ -1,6 +1,7 @@
 @config "../../tailwind.config.js";
 @plugin "@tailwindcss/typography";
 @import "tailwindcss";
+@import "./design-tokens.css";
 
 @layer base {
   html {
@@ -8,10 +9,10 @@
   }
 
   body {
-    @apply bg-white text-slate-900;
+    @apply font-body;
   }
 
   a {
-    @apply text-blue-600 hover:text-blue-700 underline;
+    @apply text-accent hover:underline;
   }
 }

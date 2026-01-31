@@ -9,7 +9,7 @@ type DocumentListProps = {
 
 export default function DocumentList({ items, emptyLabel }: DocumentListProps) {
   if (items.length === 0) {
-    return <p className="text-sm text-slate-500">{emptyLabel ?? "문서가 없습니다."}</p>;
+    return <p className="text-sm text-text-muted">{emptyLabel ?? "문서가 없습니다."}</p>;
   }
 
   return (
@@ -17,16 +17,16 @@ export default function DocumentList({ items, emptyLabel }: DocumentListProps) {
       {items.map((item) => (
         <article
           key={`${item.type}-${item.slug}`}
-          className="rounded-lg border border-slate-200 p-4"
+          className="rounded-card border border-border-subtle bg-surface p-4 shadow-card-soft"
         >
           <div className="flex flex-col gap-2">
             <Link
               href={`/${item.type}/${item.slug}`}
-              className="text-lg font-semibold text-slate-900 no-underline"
+              className="text-lg font-semibold text-text-primary no-underline"
             >
               {item.title}
             </Link>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-text-muted">
               {item.createdAt} · {item.updatedAt}
             </p>
             <div className="flex flex-wrap gap-2">
