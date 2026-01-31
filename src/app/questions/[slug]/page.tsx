@@ -30,8 +30,8 @@ export default async function QuestionDetailPage({ params }: PageProps) {
   return (
     <section className="flex flex-col gap-6">
       <header className="flex flex-col gap-3">
-        <h1 className="text-3xl font-semibold text-slate-900">{document.title}</h1>
-        <p className="text-xs text-slate-500">
+        <h1 className="text-3xl font-semibold text-text-primary">{document.title}</h1>
+        <p className="text-xs text-text-muted">
           {document.createdAt} · {document.updatedAt}
         </p>
         <div className="flex flex-wrap gap-2">

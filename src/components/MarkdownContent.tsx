@@ -3,7 +3,5 @@ type MarkdownContentProps = {
 };
 
 export default function MarkdownContent({ html }: MarkdownContentProps) {
-  return (
-    <div className="prose prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
-  );
+  return <div className="prose prose-til max-w-none" dangerouslySetInnerHTML={{ __html: html }} />;
 }

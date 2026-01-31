@@ -35,12 +35,12 @@ job-interview/
 
 ## App Router 구조(`src/app/`)
 
-- 홈: `src/app/page.tsx` (키워드 목록)
+- 홈: `src/app/page.tsx` (StarryActivity 메인)
+- 키워드 통합: `src/app/keywords/page.tsx` (키워드 목록 + 검색)
+- 키워드 상세: `src/app/keywords/[keyword]/page.tsx`
 - 질문 목록/상세: `src/app/questions/page.tsx`, `src/app/questions/[slug]/page.tsx`
 - 공부 목록/상세: `src/app/studies/page.tsx`, `src/app/studies/[slug]/page.tsx`
-- 키워드: `src/app/keywords/[keyword]/page.tsx`
 - 프로필: `src/app/profile/page.tsx`
-- 검색: `src/app/search/page.tsx`
 
 ## 라이브러리(`src/lib/`)
 

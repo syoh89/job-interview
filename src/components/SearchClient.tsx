@@ -7,6 +7,8 @@ import type { DocumentListItem } from "../lib/types";
 type SearchClientProps = {
   questions: DocumentListItem[];
   studies: DocumentListItem[];
+  query: string;
+  onQueryChange: (nextQuery: string) => void;
 };
 
 type SearchTab = "questions" | "studies";
@@ -16,8 +18,12 @@ const TAB_LABELS: Record<SearchTab, string> = {
   studies: "공부",
 };
 
-export default function SearchClient({ questions, studies }: SearchClientProps) {
-  const [query, setQuery] = useState("");
+export default function SearchClient({
+  questions,
+  studies,
+  query,
+  onQueryChange,
+}: SearchClientProps) {
   const [activeTab, setActiveTab] = useState<SearchTab>("questions");
 
   const filteredQuestions = useMemo(() => {
@@ -47,15 +53,18 @@ export default function SearchClient({ questions, studies }: SearchClientProps) 
   return (
     <section className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-medium text-slate-700" htmlFor="search">
+        <label className="text-sm font-medium text-text-primary" htmlFor="search">
           키워드/제목 검색
         </label>
         <input
           id="search"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => {
+            const nextValue = event.target.value;
+            onQueryChange?.(nextValue);
+          }}
           placeholder="예: React, 협업, HTTP"
-          className="w-full rounded-md border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-md border border-border-subtle bg-surface px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent/30"
         />
       </div>
 
@@ -69,8 +78,8 @@ export default function SearchClient({ questions, studies }: SearchClientProps) 
               onClick={() => setActiveTab(tab)}
               className={`rounded-full border px-3 py-1 text-xs font-medium transition ${
                 isActive
-                  ? "border-blue-600 bg-blue-50 text-blue-700"
-                  : "border-slate-200 text-slate-600 hover:border-slate-300 hover:text-slate-900"
+                  ? "border-accent bg-accent-soft text-text-primary"
+                  : "border-border-subtle text-text-muted hover:border-accent hover:text-text-primary"
               }`}
             >
               {TAB_LABELS[tab]}
